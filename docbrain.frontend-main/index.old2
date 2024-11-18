@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload de Arquivo com Barra de Progresso</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput">
+        <input type="submit" value="Upload" id="uploadButton">
+    </form>
+    <progress id="progressBar" value="0" max="100"></progress>
+    <div id="progressStatus"></div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const uploadButton = document.getElementById('uploadButton');
+        const progressBar = document.getElementById('progressBar');
+        const progressStatus = document.getElementById('progressStatus');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(form);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'upload.php');
+
+            xhr.upload.addEventListener('progress', (event) => {
+                const percent = (event.loaded / event.total) * 100;
+                progressBar.value = percent;
+                progressStatus.innerText = `Enviando: ${Math.round(percent)}%`;
+            });
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    progressStatus.innerText = 'Upload concluído!';
+                }
+            };
+
+            xhr.send(formData);
+        });
+    </script>
+</body>
+</html>
