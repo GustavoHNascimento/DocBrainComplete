@@ -5,7 +5,7 @@ from pytesseract import pytesseract
 import openai
 import os
 
-openai.api_key = "sk-proj-CFdUTmsh16R9LAykXEagT3BlbkFJkkFYMKHfSsCiZYKpQ4k6"
+openai.api_key = "chave api"
 
 def dividir_texto(texto, tamanho_chunk=1000):
     return [texto[i:i + tamanho_chunk] for i in range(0, len(texto), tamanho_chunk)]
@@ -101,6 +101,3 @@ print("\n--- Resposta para a pergunta ---\n")
 print(resposta_pergunta)
 
 
-
-# ChatGPT CHATGPT_API_KEY="sk-proj-CFdUTmsh16R9LAykXEagT3BlbkFJkkFYMKHfSsCiZYKpQ4k6"
-#Deixei aqui pq o github nao deixa eu subir o .env
